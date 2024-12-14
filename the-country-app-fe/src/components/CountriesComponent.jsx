@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { CountriesContext } from '../context/CountriesContext';
 
-import { CountriesDetailPage } from '../pages/CountriesDetailPage';
-import { Link, NavLink } from 'react-router-dom';
+
+import {  NavLink } from 'react-router-dom';
 
 export const CountriesComponent = () => {
     const { countries  } = useContext(CountriesContext);
@@ -17,7 +17,7 @@ export const CountriesComponent = () => {
                     <li key={country.countryCode}>
                         <strong>Name:</strong> {country.name} <br />
                         <strong>Country code:</strong> {country.countryCode} <br />
-                        <NavLink to={`/countries/${country.countryCode}`}>Country detail</NavLink>
+                        <NavLink to={`/countries/${country.countryCode}`}><button type="button" className="btn btn-primary">Country info</button></NavLink>
                     </li>
                 ))}
             </ul>

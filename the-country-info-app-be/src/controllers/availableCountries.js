@@ -28,7 +28,28 @@ const availableCountries = {
         }
         
     },
-    
+    getPopulationData: async (req, res) => {
+        try {
+            const population = await getCountriesModel.findPopulationData();
+            const response = await population
+            res.json(response);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Error getting population data', error });
+        }
+        
+    },
+    getFlagURL: async (req, res) => {
+        try {
+            const flags = await getCountriesModel.findFlagURL();
+            const response = await flags
+            res.json(response);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Error getting flags', error });
+        }
+        
+    }
 
 }
 

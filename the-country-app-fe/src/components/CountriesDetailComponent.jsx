@@ -1,16 +1,16 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
+import { CountriesImagesCompnent } from './CountriesImagesCompnent';
+
 
 export const CountriesDetailComponent = () => {
 
-    /* const { countriesDetail  } = useContext(CountriesDetailContext); */
+    const { countryCode } = useParams();
 
-    const {countryCode } = useParams();
-    
     const [countriesDetail, setCountriesDetail] = useState()
-    console.log(countriesDetail);
-    
+
+
     useEffect(() => {
         const fetchCountriesDetail = async () => {
 
@@ -19,34 +19,49 @@ export const CountriesDetailComponent = () => {
                 const data = await response.json()
                 setCountriesDetail(data)
             } catch (error) {
-                
+
                 console.error(error);
-    
+
             }
-    
+
         }
         fetchCountriesDetail()
 
 
-    }, [])
-    
-    
+    }, []);
+
+
 
     return (
         <div>
-            <h2>Available Countries</h2>
+            <h2>Country detail</h2>
+            {countriesDetail && (
+                <ul>
+                    <li key={countriesDetail.countryCode}>
+                        <h2>
+                            <strong>Name:</strong> {countriesDetail.commonName} <CountriesImagesCompnent/>
+                        </h2>
+                        
+                    </li>
+                </ul>
+            )}
+
+
+
             <ul>
-                {   
+                {
                     countriesDetail ? countriesDetail.borders.map((country) => (
-                    <li key={country.countryCode}>
-                        <strong>Name:</strong> {country.name} <br />
-                        <strong>Country code:</strong> {country.countryCode} <br />
-                        <button type="button" className="btn btn-primary">Country info</button>
-                    </li>))
-                    : <h2>Loading...</h2>
-                    
-                } 
+                        <li key={country.countryCode}>
+                            <strong>Name:</strong> {country.commonName} <br />
+                            <strong>Country code:</strong> {country.countryCode} <br />
+                            <a href={`/countries/${country.countryCode}`}><button type="button" className="btn btn-primary">Country info</button></a>
+                            
+                        </li>))
+                        : <h2>Loading...</h2>
+
+                }
             </ul>
+           
         </div>
     );
 };

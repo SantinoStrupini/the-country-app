@@ -14,6 +14,19 @@ async function getBorderCountries(countryCode) {
     return data;
 } 
 
+async function getPopulationData() {
+     
+    const response = await fetch('https://countriesnow.space/api/v0.1/countries/population'  );
+    const data = await response.json();
+    return data;
+} 
+
+async function getFlagURL() {
+     
+    const response = await fetch('https://countriesnow.space/api/v0.1/countries/flag/images');
+    const data = await response.json();
+    return data;
+}
 
 
 const Countries = {
@@ -24,7 +37,13 @@ const Countries = {
         
         return getBorderCountries(countryCode)
     },
-    
+    findPopulationData: () => {
+
+        return getPopulationData()
+    },
+    findFlagURL: () =>{
+        return getFlagURL()
+    }
 }
 
 module.exports = Countries;
